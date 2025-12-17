@@ -9,12 +9,12 @@ public class Defs {
     public static int REWARDS_SPOTS_AMOUNT = 5;
     public static int REWARD_ZONES_NUMBER = 5;
     public static int MAX_LAPS_NUMBER = 1000;
-    public static Map<Integer, Integer[]> DefaultZones = java.util.Map.of(
-        1, new Integer[]{3},
-        2, new Integer[]{3, 5},
-        3, new Integer[]{1, 3, 5},
-        4, new Integer[]{1, 2, 3, 5},
-        5, new Integer[]{1, 2, 3, 4, 5}
+    public static Map<Integer, int[]> DefaultZones = java.util.Map.of(
+        1, new int[]{3},
+        2, new int[]{3, 5},
+        3, new int[]{1, 3, 5},
+        4, new int[]{1, 2, 3, 5},
+        5, new int[]{1, 2, 3, 4, 5}
     );
 
     public static String BEHAVIORAL_FILE_NAME = "behavioralData.csv";

@@ -27,34 +27,34 @@ public class RewardStationDef implements Serializable {
     // num of laps for this defenition. If -1 then it's infinite
     private int numLaps;
     // zones to put the rewards in. From 1 - REWARD_ZONES_NUMBER(5). Should be as the numInLap. If numInLap > 5, just puts rewards int the middle.
-    private Integer[] zones;
+    private int[] zones;
     // for the sake of changing the rewards. From -1 - REWARDS_SPOTS_OPTIONS, where -1 is random, 0 is in the middle.
-    private Integer[] placeInZone;
+    private int[] placeInZone;
     // probability list of rewards
-    private Double[] probability;
+    private double[] probability;
     
     public RewardStationDef(int numRewardsInTheLap, int numLaps) {
         this.numInLap = numRewardsInTheLap;
         this.numLaps = numLaps;
         if (numRewardsInTheLap <= Defs.REWARD_ZONES_NUMBER) {
             this.zones = Defs.DefaultZones.get(numRewardsInTheLap);
-            this.placeInZone = new Integer[numInLap];
-            this.probability = new Double[numInLap];
-            for(int i = 0; i < numLaps; i++) {
+            this.placeInZone = new int[numInLap];
+            this.probability = new double[numInLap];
+            for (int i = 0; i < numLaps; i++) {
                 placeInZone[i] = 0;
                 probability[i] = 1.0;
             }
         }
     }
 
-    public RewardStationDef(int numRewardsInTheLap, int numLaps, Integer[] zones) {
+    public RewardStationDef(int numRewardsInTheLap, int numLaps, int[] zones) {
         this.numInLap = numRewardsInTheLap;
         this.numLaps = numLaps;
         if (numRewardsInTheLap <= Defs.REWARD_ZONES_NUMBER) {
             this.zones = zones;
-            this.placeInZone = new Integer[numInLap];
-            this.probability = new Double[numInLap];
-            for(int i = 0; i < numLaps; i++) {
+            this.placeInZone = new int[numInLap];
+            this.probability = new double[numInLap];
+            for (int i = 0; i < numLaps; i++) {
                 placeInZone[i] = 0;
                 probability[i] = 1.0;
             }
@@ -64,7 +64,7 @@ public class RewardStationDef implements Serializable {
         }
     }
 
-    public RewardStationDef(int numRewardsInTheLap, int numLaps, Integer[] zones, Integer[] placeInZone, Double[] probability) {
+    public RewardStationDef(int numRewardsInTheLap, int numLaps, int[] zones, int[] placeInZone, double[] probability) {
         this.numInLap = numRewardsInTheLap;
         this.numLaps = numLaps;
         this.zones = zones;

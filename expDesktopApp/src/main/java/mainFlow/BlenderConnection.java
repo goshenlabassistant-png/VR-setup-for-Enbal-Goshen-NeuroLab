@@ -201,7 +201,7 @@ public class BlenderConnection {
         for (RewardStationDef rewardDef : rewardsDefs) {
             for (int i = 0; i < rewardDef.getNumLaps(); i++) {
                 JSONArray rewards = new JSONArray();
-                ArrayList<Double> rewardPositions = rewardsDefs.get(i).calculateRewardsPosition();
+                ArrayList<Double> rewardPositions = rewardDef.calculateRewardsPosition();
                 for (double rewardPosition : rewardPositions) {
                     // calculate the reward position in the maze
                     //? maze is oppisite. Should I move this code to the maze?
