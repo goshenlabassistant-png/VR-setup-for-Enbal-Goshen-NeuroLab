@@ -38,10 +38,12 @@ public class RewardStationDef implements Serializable {
         this.numLaps = numLaps;
         if (numRewardsInTheLap <= Defs.REWARD_ZONES_NUMBER) {
             this.zones = Defs.DefaultZones.get(numRewardsInTheLap);
-            this.placeInZone = new Integer[numLaps];
-            this.probability = new Double[numLaps];
-            java.util.Arrays.fill(placeInZone, 0);
-            java.util.Arrays.fill(probability, 1);
+            this.placeInZone = new Integer[numInLap];
+            this.probability = new Double[numInLap];
+            for(int i = 0; i < numLaps; i++) {
+                placeInZone[i] = 0;
+                probability[i] = 1.0;
+            }
         }
     }
 
@@ -50,10 +52,12 @@ public class RewardStationDef implements Serializable {
         this.numLaps = numLaps;
         if (numRewardsInTheLap <= Defs.REWARD_ZONES_NUMBER) {
             this.zones = zones;
-            this.placeInZone = new Integer[numLaps];
-            this.probability = new Double[numLaps];
-            java.util.Arrays.fill(placeInZone, 0);
-            java.util.Arrays.fill(probability, 1);
+            this.placeInZone = new Integer[numInLap];
+            this.probability = new Double[numInLap];
+            for(int i = 0; i < numLaps; i++) {
+                placeInZone[i] = 0;
+                probability[i] = 1.0;
+            }
         }
         else {
             System.out.println("Error: numRewardsInTheLap is greater than " + Defs.REWARD_ZONES_NUMBER);
