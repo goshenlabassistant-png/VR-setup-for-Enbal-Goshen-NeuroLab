@@ -1,12 +1,21 @@
 package consts;
 
+import java.util.Map;
+
 public class Defs {
     public static int BLENDER_PORT = 65432;
     public static String BLENDER_IP = "localhost";
-    public static String BLENDER_PATH = "C:\\Program Files\\Blender Foundation\\Blender\\blenderplayer.exe"; // TODO change in production
 
     public static int REWARDS_SPOTS_AMOUNT = 5;
+    public static int REWARD_ZONES_NUMBER = 5;
     public static int MAX_LAPS_NUMBER = 1000;
+    public static Map<Integer, Integer[]> DefaultZones = java.util.Map.of(
+        1, new Integer[]{3},
+        2, new Integer[]{3, 5},
+        3, new Integer[]{1, 3, 5},
+        4, new Integer[]{1, 2, 3, 5},
+        5, new Integer[]{1, 2, 3, 4, 5}
+    );
 
     public static String BEHAVIORAL_FILE_NAME = "behavioralData.csv";
     public static String SYNC_FILE_NAME_ENDING = ".csv";

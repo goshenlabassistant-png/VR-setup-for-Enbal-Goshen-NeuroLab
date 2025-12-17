@@ -190,7 +190,6 @@ public class FileSystem {
                             currentLabel = null;
                         }
                         group.clear(); // clear the group for the next set of rows
-                        //! TODO: check that works properly and writes also the last data (and not to mat)
                     }
                 }
                 
@@ -245,7 +244,7 @@ public class FileSystem {
         return time + SEPARATOR + totalLocation + SEPARATOR + onReward + SEPARATOR + lick + SEPARATOR + lap + SEPARATOR + TTL; // return the data in the format: time, location, onReward, lick, lap, ttlNumber
     }
 
-    private void handleGraphAndMatFiles() {
+    public void handleGraphAndMatFiles() {
         XYSeries dataXY = new XYSeries(Defs.GRAPH_DATA_NAME);
         XYSeries rewardsXY = new XYSeries(Defs.GRAPH_REWARDS_NAME);
         XYSeries licksXY = new XYSeries(Defs.GRAPH_LICK_NAME);

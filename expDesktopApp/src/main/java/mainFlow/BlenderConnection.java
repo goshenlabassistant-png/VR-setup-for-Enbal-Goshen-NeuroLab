@@ -151,41 +151,65 @@ public class BlenderConnection {
         }
     }
 
+    // public JSONArray calculateRewardList(ArrayList<RewardStationDef> rewardsDefs) {
+    //     // save for if number is more then 5.
+    //     // calculate the rewards list
+    //     JSONArray rewardsLists = new JSONArray();
+    //     for (RewardStationDef rewardDef : rewardsDefs) {
+    //         double blendMazeCircumference = Math.PI * 2;
+    //         for (int i = 0; i < rewardDef.getNumLaps(); i++) { // TODO short this when prob = 1 and not random
+    //             // divide the maze into equal sections for the rewards to be in
+    //             JSONArray rewards = new JSONArray();
+    //             double sectionLength = blendMazeCircumference / rewardDef.getNumInLap();
+    //             for (int j = 0; j < rewardDef.getNumInLap(); j++) {
+    //                 if (Math.random() < rewardDef.getProbability()) {
+    //                     // calculate the reward position
+    //                     double rewardPosition = sectionLength * j;
+    //                     int placeInZone = rewardDef.getPlaceInZone();
+    //                     if (placeInZone == -1) {
+    //                         rewardPosition += Math.random() * sectionLength;
+    //                     } 
+    //                     else {
+    //                         if (placeInZone == 0) {
+    //                             rewardPosition += sectionLength / 2;
+    //                         } 
+    //                         else {
+    //                             double sectionZones = sectionLength / Defs.REWARDS_SPOTS_AMOUNT;
+    //                             rewardPosition += sectionZones * (placeInZone - 1) + sectionZones / 2;
+    //                         }
+    //                     }
+
+    //                     // calculate the reward position in the maze
+    //                     //? maze is oppisite. Should I move this code to the maze?
+    //                     double x = Math.cos(-rewardPosition) * this.radius;
+    //                     double y = Math.sin(-rewardPosition) * this.radius;
+
+    //                     // add the reward to the list of rewards for this lap
+    //                     rewards.put(new JSONArray(new Double[] { x, y }));
+    //                 }
+    //             }
+    //             // add the list of rewards for this lap to the list of rewards for all laps
+    //             rewardsLists.put(rewards);
+    //         }
+    //     }
+    //     return rewardsLists;
+    // }
+
     public JSONArray calculateRewardList(ArrayList<RewardStationDef> rewardsDefs) {
         // calculate the rewards list
         JSONArray rewardsLists = new JSONArray();
         for (RewardStationDef rewardDef : rewardsDefs) {
-            double blendMazeCircumference = Math.PI * 2;
-            for (int i = 0; i < rewardDef.getNumLaps(); i++) { // TODO short this when prob = 1 and not random
-                // divide the maze into equal sections for the rewards to be in
+            for (int i = 0; i < rewardDef.getNumLaps(); i++) {
                 JSONArray rewards = new JSONArray();
-                double sectionLength = blendMazeCircumference / rewardDef.getNumInLap();
-                for (int j = 0; j < rewardDef.getNumInLap(); j++) {
-                    if (Math.random() < rewardDef.getProbability()) {
-                        // calculate the reward position
-                        double rewardPosition = sectionLength * j;
-                        int placeInZone = rewardDef.getPlaceInZone();
-                        if (placeInZone == -1) {
-                            rewardPosition += Math.random() * sectionLength;
-                        } 
-                        else {
-                            if (placeInZone == 0) {
-                                rewardPosition += sectionLength / 2;
-                            } 
-                            else {
-                                double sectionZones = sectionLength / Defs.REWARDS_SPOTS_AMOUNT;
-                                rewardPosition += sectionZones * (placeInZone - 1) + sectionZones / 2;
-                            }
-                        }
+                ArrayList<Double> rewardPositions = rewardsDefs.get(i).calculateRewardsPosition();
+                for (double rewardPosition : rewardPositions) {
+                    // calculate the reward position in the maze
+                    //? maze is oppisite. Should I move this code to the maze?
+                    double x = Math.cos(-rewardPosition) * this.radius;
+                    double y = Math.sin(-rewardPosition) * this.radius;
 
-                        // calculate the reward position in the maze
-                        //? maze is oppisite. Should I move this code to the maze?
-                        double x = Math.cos(-rewardPosition) * this.radius;
-                        double y = Math.sin(-rewardPosition) * this.radius;
-
-                        // add the reward to the list of rewards for this lap
-                        rewards.put(new JSONArray(new Double[] { x, y }));
-                    }
+                    // add the reward to the list of rewards for this lap
+                    rewards.put(new JSONArray(new Double[] { x, y }));
                 }
                 // add the list of rewards for this lap to the list of rewards for all laps
                 rewardsLists.put(rewards);
