@@ -8,12 +8,12 @@ import mainFlow.ExperimentFlow;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        ExperimentData expData = new ExperimentData("GCamp_Gq19 ", "CHECK_M1_training", "C:\\Users\\owner\\Desktop\\Shay");
+        ExperimentData expData = new ExperimentData("GCGQ20", "M1_training", "C:\\Users\\owner\\Desktop\\Shay");
         ExperimentFlow exp = new ExperimentFlow(35, expData);
         ArrayList<RewardStationDef> rewards = new ArrayList<>();
 
         // rewards.add(new RewardStationDef(1, 2));
-        rewards.add(new RewardStationDef(5, 2, 
+        rewards.add(new RewardStationDef(1, 1, 
             new int[] {1,2,3,4,5}, // zones
             new int[] {0,0,0,0,0}, // placeInZone
             new double[] {1.0,1.0,1.0,1.0,1.0})); // probability

@@ -38,6 +38,8 @@ public class ArduinoConnection {
         if (!ardPort.openPort()) {
             throw new Exception("Failed to open port");
         }
+
+        System.out.println("arduino connected succesfully!");
     
         // Buffer to accumulate incoming data
         StringBuilder buffer = new StringBuilder();

@@ -63,6 +63,7 @@ def apply_movement():
           # If the encoder rotates, move the player:
           move_player(delta)
 
+          #TODO make sure it doesnt go one step to foward with it saying it is backwards, because it can ruin the reward collision event
           # Update the 'backwards movment' value if necessary 
           # (counts the backwards movments of the mouse in order to keep him from getting things if he went backwards for them)
           if player_path['backwards_movment'] > 0:

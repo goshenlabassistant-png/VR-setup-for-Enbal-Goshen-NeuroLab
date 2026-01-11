@@ -6,18 +6,19 @@ import numpy as np
 # This script is in charge of setting all the necessary rewards in place for each new round, based on the
 # reward sequences set beforehand by the user
 # I put all the air station code in comments, because it is not used in the current version of the experiment
-# If you want to use it, probbably a lot of changes well be needed.
+# If you want to use it, probably a lot of changes well be needed.
+# This code is triggered ONLY if the system identifies a collision!!
 player_path = bge.logic.getCurrentScene().objects['player_path']
 
-def collision(cont): # TODO change collision function to consider backwards
-    # Loops through all connected sensors and returns if one is False
-    # Basically makes it work like an And conroller.
-    if player_path['backwards_movment'] <= 0: # collision only if the player is moving forward
-        return False
-    for sens in cont.sensors:
-        if not sens.positive:
-            return False
-    return True
+# def collision(cont):
+#     # Loops through all connected sensors and returns if one is False
+#     # Basically makes it work like an And conroller.
+#     if player_path['backwards_movment'] <= 0: # collision only if the player is moving forward
+#         return False
+#     for sens in cont.sensors:
+#         if not sens.positive:
+#             return False
+#     return True
 
 
 def apply_start_logic():
@@ -26,6 +27,7 @@ def apply_start_logic():
         return
     cont = bge.logic.getCurrentController()
     own = cont.owner
+
 
     # initializing the stations at the beginning of the experiment
     if not own['initiated']:
@@ -38,9 +40,10 @@ def apply_start_logic():
         # set first reward position
         if len(own['rewards']) > 0:
             position = own['rewards'][0][0]
-            position.append(0)
+            positionDeepCopy = position.copy()
+            positionDeepCopy.append(0)
             station = bge.logic.getCurrentScene().objects["rewardST"]
-            station.worldPosition = position
+            station.worldPosition = positionDeepCopy
             station['id'] = 1
 
         # if not outer_wall['rand_air']:
@@ -48,7 +51,8 @@ def apply_start_logic():
         own['initiated'] = True
         
     # when the player has collided with the start object
-    if collision(cont):
+    # collision only if the player is moving forward
+    if player_path['backwards_movment'] > 0:
         # if it passed all the rewards and straight
         if own['num_pass'] >= own['num_rewards']:
             # passed a lap
@@ -57,6 +61,7 @@ def apply_start_logic():
             # lap reward initilaization
             own['num_pass'] = 0
             own['num_rewards'] = 0 if len(own['rewards']) == 0 else len(own['rewards'][0])
+        
 
         # if not outer_wall['rand_air']:
         #  if own['air_pass'] >= own['num_air']:

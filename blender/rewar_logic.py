@@ -3,38 +3,19 @@ import GameLogic
 import numpy as np
 # this script is linked to rewardSTi object for 1 < i < 26
 # This script is in charge of deciding if a reward appears (in case its probability is neither 0 nor 1)
-# and then in charge of giving a reward signal to the multi_ttl arduino, so that the mouse may recieve
-# its reward.
+# and then in charge of giving a reward signal to the multi_ttl arduino, so that the mouse may recieve its reward.
+# This code is triggered ONLY if the system identifies a collision!!
 player_path = bge.logic.getCurrentScene().objects['player_path']
-
-def collision(cont):
-    # Loops through all connected sensors and returns if one is False
-    # Basically makes it work like an And conroller.
-    if player_path['backwards_movment'] <= 0: # collision only if the player is moving forward
-        return False
-    for sens in cont.sensors:
-        if not sens.positive:
-            return False
-    return True
-
+player = bge.logic.getCurrentScene().objects['player']
 
 def apply_reward_logic():
     cont = bge.logic.getCurrentController()
     own = cont.owner
 
-    # check for proper activation
-    if collision(cont):
+    # collision only if the player is moving forward
+    if player_path['backwards_movment'] > 0:
         start = bge.logic.getCurrentScene().objects['start']
-        # check if this station has been reached in the correct order
-        # if own['id'] == start['num_pass']:
-        #     own['prob'] = np.random.binomial(1, own['initProb'])
-        #     start['num_pass'] += 1
-        #     # check if this station should give a reward
-        #     if own['prob'] == 1:
-        #         if own['reward'] != "0.0":
-        #             player_path['serial_obj'].write(b'1') 
-        #             print("reward at station %s was given" %(own['id']))
-        if not player_path['reward_collision'] and own['id'] == start['num_pass'] + 1:
+        if not player_path['reward_collision'] and own['id'] == start['num_pass'] + 1 and own.getDistanceTo(player) < 5.0:
             player_path['reward_collision'] = True
             start['num_pass'] += 1
             position = []
