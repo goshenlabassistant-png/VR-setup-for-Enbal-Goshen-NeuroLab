@@ -8,7 +8,7 @@ import mainFlow.ExperimentFlow;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        ExperimentData expData = new ExperimentData("GCamp6s_TH_A", "M2_Training",  "C:\\Users\\owner\\Desktop\\stephano\\Gcamp6s_TH");
+        ExperimentData expData = new ExperimentData("GCamp6s_TH_A", "Mock",  "C:\\Users\\owner\\Desktop\\stephano\\Gcamp6s_TH");
         ExperimentFlow exp = new ExperimentFlow(35, expData);
         ArrayList<RewardStationDef> rewards = new ArrayList<>();
 
